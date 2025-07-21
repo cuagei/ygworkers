@@ -6,7 +6,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: "0 1 * * *" # 每天凌晨1点（UTC）运行，KST 10:00
+    - cron: "0 1 * * *" # 每天凌晨1点（UTC），KST 10:00
   workflow_dispatch: # 支持手动触发
 
 permissions:
@@ -63,7 +63,7 @@ jobs:
         if: env.UPDATE_NEEDED == 'true'
         run: |
           echo -e "\033[34m[清理旧文件]\033[0m"
-          rm -f Vless_workers_pages/vless无需proxyip的nat64套壳版.js
+          rm -f "Vless_workers_pages/vless无需proxyip的nat64套壳版.js"
           echo -e "\033[34m[下载最新文件]\033[0m"
           mkdir -p Vless_workers_pages
           curl -o "Vless_workers_pages/vless无需proxyip的nat64套壳版.js" "$FILE_URL"
