@@ -1,0 +1,28 @@
+```yaml
+name: Sync Vless File
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 每天 UTC 时间 00:00 运行
+  workflow_dispatch: # 支持手动触发
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Download Vless File
+        run: |
+          mkdir -p Vless_workers_pages
+          curl -o "Vless_workers_pages/vless无需proxyip的nat64套壳版.js" "https://raw.githubusercontent.com/yonggekkk/Cloudflare-vless-trojan/refs/heads/main/Vless_workers_pages/vless无需proxyip的nat64套壳版%20(推荐使用).js"
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          git add "Vless_workers_pages/vless无需proxyip的nat64套壳版.js"
+          git diff --quiet && git diff --staged --quit || git commit -m "自动同步更新 vless无需proxyip的nat64套壳版.js 文件"
+          git push
+```
